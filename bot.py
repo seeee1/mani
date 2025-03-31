@@ -2,7 +2,7 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-# جلب القيم من المتغيرات السرية في Render
+
 API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("API_HASH")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -21,7 +21,7 @@ async def delete_edited(client: Client, message: Message):
     await message.delete()
     await message.reply_text(f"🚨 المستخدم @{username}, لا يُسمح للأعضاء بتعديل الرسائل! 🛑")
 
-BANNED_WORDS = ["ايدي", "ا", "سكس"]
+BANNED_WORDS = ["ايدي", "ا", "سكس" ,"افتاري"]
 
 @app.on_message(filters.group)
 async def delete_specific_messages(client: Client, message: Message):
