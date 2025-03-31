@@ -23,6 +23,19 @@ async def delete_edited(client: Client, message: Message):
     await message.delete()
     await message.reply_text(f"🚨 المستخدم @{username}, لا يُسمح للأعضاء بتعديل الرسائل! 🛑")
 
+forbidden_words = ["ايدي", "ا", "افتاري", "سكس"]
+
+
+@app.on_message(filters.text)
+def check_forbidden_words(client, message: Message):
+    # التحقق من الكلمات الممنوعة في الرسالة
+    for word in forbidden_words:
+        if word in message.text:
+            # حذف الرسالة
+            message.delete()
+            # إرسال تحذير
+            message.reply("تحذير: تحتوي رسالتك على كلمات ممنوعة.")
+            break
 
 
         
