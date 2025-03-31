@@ -22,15 +22,6 @@ async def delete_edited(client: Client, message: Message):
     await message.delete()
     await message.reply_text(f"🚨 المستخدم @{username}, لا يُسمح للأعضاء بتعديل الرسائل! 🛑")
 
-BANNED_WORDS = ["ايدي", "ا", "سكس" ,"افتاري"]
-
-@app.on_message(filters.group)
-async def delete_specific_messages(client: Client, message: Message):
-    if any(word in message.text.lower() for word in BANNED_WORDS):
-        await message.delete()
-        await message.reply_text(f"🚨 رسالتك تحتوي على كلمات محظورة، @{message.from_user.username} 🛑")
-
-
 
 
 @app.on_message(filters.command("start"))
