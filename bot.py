@@ -4,6 +4,7 @@ from pyrogram.types import Message
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
+# جلب القيم من المتغيرات السرية في Render
 API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("API_HASH")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -22,16 +23,21 @@ async def delete_edited(client: Client, message: Message):
     await message.delete()
     await message.reply_text(f"🚨 المستخدم @{username}, لا يُسمح للأعضاء بتعديل الرسائل! 🛑")
 
+BANNED_WORDS = ["ايدي", "ا", "سكس" ,"افتاري"]
 
-
+@app.on_message(filters.group)
+async def delete_specific_messages(client: Client, message: Message):
+    if any(word in message.text.lower() for word in BANNED_WORDS):
+        await message.delete()
+        await message.reply_text(f"🚨 رسالتك تحتوي على كلمات محظورة، @{message.from_user.username} 🛑")
+        
 @app.on_message(filters.command("start"))
 def start(client, message):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🌐 القناه الرسميه", url="https://t.me/senzir2")],
         [InlineKeyboardButton("المطور 🧑‍💻", url="https://t.me/senzir1")]
     ])
-    message.reply_text("اهلا وسهلا فيك ببوت سينزر لحماية الجروبات من التبنيد", reply_markup=keyboard)
-    
+    message.reply_text("اهلا وسهلا فيك ببوت سينزر لحماية الجروبات من التبنيد", reply_markup=keyboard)        
 
 print("✅ البوت يعمل...")
 app.run()
