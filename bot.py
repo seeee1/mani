@@ -24,26 +24,7 @@ async def delete_edited(client: Client, message: Message):
     await message.reply_text(f"🚨 المستخدم @{username}, لا يُسمح للأعضاء بتعديل الرسائل! 🛑")
 
 
-blocked_words = ["ايدي", "ا", "سكس"]
 
-# تعريف العميل
-app = Client("my_bot")
-
-# دالة للتحقق من الكلمات المحظورة في الرسالة
-def contains_blocked_words(text):
-    for word in blocked_words:
-        if word in text.split():
-            return True
-    return False
-
-@app.on_message(filters.text)
-def message_handler(client, message):
-    # إذا كانت الرسالة تحتوي على كلمة محظورة
-    if contains_blocked_words(message.text):
-        message.delete()  # حذف الرسالة
-        message.reply("تم حذف الرسالة لأنها تحتوي على كلمات محظورة.")
-    else:
-        print("الرسالة سليمة:", message.text)
         
 @app.on_message(filters.command("start"))
 def start(client, message):
